@@ -2,7 +2,6 @@ module Fluent
   class GcloudStorageOutput < TimeSlicedOutput
     CHUNK_ID_PLACE_HOLDER = '${chunk_id}'
     DEFAULT_TIME_SLICE_FORMAT = '%Y%m%d'
-    UPLOAD_CHUNK_SIZE = 5 * 1024 * 1024
 
     Fluent::Plugin.register_output('gcloud_storage', self)
 
@@ -45,11 +44,7 @@ module Fluent
     end
 
     def write(chunk)
-      @gs_bucket.create_file(
-        chunk.path,
-        generate_path(chunk),
-        chunk_size: UPLOAD_CHUNK_SIZE
-      )
+      @gs_bucket.create_file(local_path, remote_path)
     end
 
     private
