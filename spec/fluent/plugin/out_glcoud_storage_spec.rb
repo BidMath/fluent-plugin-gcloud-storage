@@ -1,8 +1,18 @@
 require 'fluent/plugin/out_gcloud_storage'
+require 'tempfile'
 
 module Fluent
   RSpec.describe GcloudStorageOutput do
     before { Fluent::Test.setup }
+    around do |example|
+      begin
+        @buffer = Tempfile.new("tempfile")
+        example.run
+      ensure
+        @buffer.close
+        @buffer.unlink
+      end
+    end
 
     def create_driver(conf)
       Test::TimeSlicedOutputTestDriver.new(described_class) do
@@ -32,7 +42,7 @@ module Fluent
       path           /path/%Y-%m-%d-%H-${chunk_id}
 
       utc
-      buffer_type    memory
+      buffer_path    #{@buffer.path}
     ]}
     let(:driver) { create_driver(config) }
     subject { driver.instance }
@@ -64,6 +74,15 @@ module Fluent
 
       context "when path does not include '${chunk_id}'" do
         let(:wrong_config) { config.sub('${chunk_id}', '') }
+
+        specify do
+          expect { create_driver(wrong_config) }
+            .to raise_error(ConfigError)
+        end
+      end
+
+      context "when the 'buffer_type' is other than 'file'" do
+        let(:wrong_config) { config.concat("\nbuffer_type memory") }
 
         specify do
           expect { create_driver(wrong_config) }

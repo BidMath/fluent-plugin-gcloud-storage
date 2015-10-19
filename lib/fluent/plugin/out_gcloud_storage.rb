@@ -25,6 +25,7 @@ module Fluent
 
       ensure_gcloud_arguments!
       ensure_proper_path!
+      ensure_buffer_type!
       setup_formatter(conf)
     end
 
@@ -58,6 +59,10 @@ module Fluent
         .gsub(CHUNK_ID_PLACE_HOLDER, path_chunk_id)
     end
 
+    def chunk_unique_id_to_str(unique_id)
+      unique_id.unpack('C*').map{|x| x.to_s(16).rjust(2,'0')}.join('')
+    end
+
     def predict_time_slice_format!(conf)
       return unless (path = conf['path'])
 
@@ -85,6 +90,10 @@ module Fluent
           'chunk.key. Google Cloud Storage does not support append operation'\
           'on objects. Tip: Use gsutil compose command to merge objects.'
       end
+    end
+
+    def ensure_buffer_type!
+      fail ConfigError, "'buffer_type file' is mandatory" unless @buffer_type == 'file'
     end
 
     def setup_formatter(conf)
