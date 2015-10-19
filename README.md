@@ -2,6 +2,8 @@
 
 [Cloud Storage](https://cloud.google.com/storage/) Output plugin for [Fluentd](http://www.fluentd.org/) with [gcloud](https://googlecloudplatform.github.io/gcloud-ruby/) gem.
 
+Sponsored by [BIDMATH](http://bidmath.com)
+
 ## Installation
 
 Please follow the [Plugin Management](http://docs.fluentd.org/articles/plugin-management) guide of fluentd.
