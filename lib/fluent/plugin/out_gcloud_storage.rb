@@ -51,7 +51,7 @@ module Fluent
     private
 
     def generate_path(chunk)
-      path_chunk_id = Base64.encode64(chunk.unique_id)
+      path_chunk_id = chunk_unique_id_to_str(chunk.unique_id)
 
       Time
         .strptime(chunk.key, @time_slice_format) # parse chunk time
