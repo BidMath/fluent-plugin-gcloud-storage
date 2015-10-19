@@ -1,4 +1,3 @@
-require 'fluent/test'
 require 'fluent/plugin/out_gcloud_storage'
 
 module Fluent
