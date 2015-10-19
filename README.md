@@ -36,9 +36,8 @@ publish dummy json data like `{"message": "dummy", "value": 0}\n{"message": "dum
   key            <PATH YOUR KEY JSON FILE>
   project        <YOUR PROJECT ID>
   bucket         <YOUR BUCKET ID>
-
-  flush_interval 10
   path           /path/to/the/output/file
+
   buffer_path    <PATH OF THE BUFFER>
 </match>
 ```
