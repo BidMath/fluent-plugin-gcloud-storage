@@ -45,7 +45,15 @@ module Fluent
     end
 
     def write(chunk)
+      local_path = chunk.path
+      remote_path = generate_path(chunk)
+
+      log.debug('Writting chunk(%s) from: %s to: %s' % [chunk.key, local_path, remote_path])
+      before = Time.now.to_f
+
       @gs_bucket.create_file(local_path, remote_path)
+
+      log.debug('Chunk(%s) upload was done in: %.2fs' % [chunk.key, (Time.now.to_f - before)])
     end
 
     private
