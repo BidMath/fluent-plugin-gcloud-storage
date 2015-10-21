@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'fluent-plugin-gcloud-storage'
-  spec.version       = '0.1.1'
+  spec.version       = '0.1.2'
   spec.authors       = ['Gergő Sulymosi']
   spec.email         = ['gergo.sulymosi@gmail.com']
 
