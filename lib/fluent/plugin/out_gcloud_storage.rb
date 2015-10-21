@@ -15,14 +15,8 @@ module Fluent
     def initialize
       super
 
-      require 'gcloud'
-      # http://googlecloudplatform.github.io/gcloud-ruby/docs/master/Gcloud/Storage/Bucket.html#method-i-create_file-label-A+note+about+large+uploads
-      require 'faraday'
+      require 'gcloud/storage'
       require 'httpclient'
-      Faraday.default_adapter = :httpclient
-      if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('0.9.2')
-        Faraday::Response.register_middleware(gzip: Faraday::Response::Middleware)
-      end
     end
 
     def configure(conf)
@@ -39,10 +33,7 @@ module Fluent
     def start
       super
 
-      @gs_bucket = Gcloud
-        .new(@project, @key)
-        .storage
-        .bucket(@bucket)
+      @gs_bucket = initialize_bucket
     end
 
     # def shutdown; super; end
@@ -64,6 +55,19 @@ module Fluent
     end
 
     private
+
+    def initialize_bucket
+      # http://googlecloudplatform.github.io/gcloud-ruby/docs/master/Gcloud/Storage/Bucket.html#method-i-create_file-label-A+note+about+large+uploads
+      Faraday.default_adapter = :httpclient
+      if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('0.9.2')
+        Faraday::Response.register_middleware(gzip: Faraday::Response::Middleware)
+      end
+
+      Gcloud
+        .new(@project, @key)
+        .storage
+        .bucket(@bucket)
+    end
 
     def generate_path(chunk)
       path_chunk_id = chunk_unique_id_to_str(chunk.unique_id)
