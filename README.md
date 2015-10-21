@@ -1,5 +1,6 @@
 # fluent-plugin-gcloud-storage
 [![Build Status](https://travis-ci.org/trekdemo/fluent-plugin-gcloud-storage.svg?branch=master)](https://travis-ci.org/trekdemo/fluent-plugin-gcloud-storage)
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-gcloud-storage.svg)](https://badge.fury.io/rb/fluent-plugin-gcloud-storage)
 
 [Cloud Storage](https://cloud.google.com/storage/) Output plugin for [Fluentd](http://www.fluentd.org/) with [gcloud](https://googlecloudplatform.github.io/gcloud-ruby/) gem.
 
