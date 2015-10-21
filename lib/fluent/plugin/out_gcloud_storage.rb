@@ -16,6 +16,13 @@ module Fluent
       super
 
       require 'gcloud'
+      # http://googlecloudplatform.github.io/gcloud-ruby/docs/master/Gcloud/Storage/Bucket.html#method-i-create_file-label-A+note+about+large+uploads
+      require 'faraday'
+      require 'httpclient'
+      Faraday.default_adapter = :httpclient
+      if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('0.9.2')
+        Faraday::Response.register_middleware(gzip: Faraday::Response::Middleware)
+      end
     end
 
     def configure(conf)

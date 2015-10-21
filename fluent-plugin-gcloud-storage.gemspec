@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'fluentd', '> 0.10.42'
   spec.add_runtime_dependency 'gcloud', '~> 0.4.0'
+  spec.add_runtime_dependency 'httpclient', '~> 2.6'
 end
