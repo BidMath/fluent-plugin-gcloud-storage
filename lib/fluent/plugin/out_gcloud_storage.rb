@@ -6,11 +6,11 @@ module Fluent
     Fluent::Plugin.register_output('gcloud_storage', self)
 
     config_set_default :time_slice_format, DEFAULT_TIME_SLICE_FORMAT
-    config_param :project, :string, :default => nil
-    config_param :bucket,  :string, :default => nil
-    config_param :key,     :string, :default => nil
-    config_param :path,    :string, :default => nil
-    config_param :format,  :string, :default => 'out_file'
+    config_param :project, :string, default: nil
+    config_param :bucket,  :string, default: nil
+    config_param :key,     :string, default: nil
+    config_param :path,    :string, default: nil
+    config_param :format,  :string, default: 'out_file'
 
     def initialize
       super
