@@ -78,6 +78,8 @@ module Fluent
         .gsub(CHUNK_ID_PLACE_HOLDER, path_chunk_id)
     end
 
+    # Picked from github.com/fluent/fluent-plugin-webhdfs
+    #
     def chunk_unique_id_to_str(unique_id)
       unique_id.unpack('C*').map{|x| x.to_s(16).rjust(2,'0')}.join('')
     end
